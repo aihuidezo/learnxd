@@ -7,7 +7,7 @@ package com.lonely.zo.learnxd.dto;
  */
 public class AccessTokenDTO {
     private String client_id;
-    private String client_cecret;
+    private String client_secret;
     private String code;
     private String redirect_uri;
     private String state;
@@ -20,12 +20,12 @@ public class AccessTokenDTO {
         this.client_id = client_id;
     }
 
-    public String getClient_cecret() {
-        return client_cecret;
+    public String getClient_secret() {
+        return client_secret;
     }
 
-    public void setClient_cecret(String client_cecret) {
-        this.client_cecret = client_cecret;
+    public void setClient_secret(String client_secret) {
+        this.client_secret = client_secret;
     }
 
     public String getCode() {
