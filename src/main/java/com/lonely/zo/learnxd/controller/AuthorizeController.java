@@ -2,6 +2,8 @@ package com.lonely.zo.learnxd.controller;
 
 import com.lonely.zo.learnxd.dto.AccessTokenDTO;
 import com.lonely.zo.learnxd.dto.GithubUser;
+import com.lonely.zo.learnxd.mapper.UserMapper;
+import com.lonely.zo.learnxd.model.User;
 import com.lonely.zo.learnxd.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 /**
  * @Description
@@ -21,6 +24,8 @@ public class AuthorizeController {
 
     @Autowired
     private GithubProvider githubProvider;
+    @Autowired
+    private UserMapper userMapper;
 
     @Value("${github.client.id}")
     private String clientId;
@@ -28,6 +33,8 @@ public class AuthorizeController {
     private String clientSecret;
     @Value("${github.redirect.uri}")
     private String redirectUri;
+
+    private GithubUser githubUser;
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name="code")  String code,
@@ -40,10 +47,17 @@ public class AuthorizeController {
         accessTokenDTO.setState(state);
         accessTokenDTO.setCode(code);
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
-        GithubUser user = githubProvider.getUser(accessToken);
-        if(user!=null){
+        githubUser = githubProvider.getUser(accessToken);
+        if(githubUser !=null){
+            User user = new User();
+            user.setToken(UUID.randomUUID().toString());
+            user.setName(githubUser.getName());
+            user.setAccountId(String.valueOf(githubUser.getId()));
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreate());
+            userMapper.insert(user);
             //登录成功，写Cookie和session
-            request.getSession().setAttribute("user",user);
+            request.getSession().setAttribute("user", this.githubUser);
             return "redirect:/";
         }else{
             //登陆失败，重新登录
