@@ -8,12 +8,11 @@
 ## 工具
 [git工具](https://git-scm.com)
 
-##的哈发快递
-
 
 
 ##sql脚本
 ```sql
+    user 表
 CREATE TABLE `t_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `account_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
@@ -24,6 +23,6 @@ CREATE TABLE `t_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 ```
-##git test
+
 
 
