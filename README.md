@@ -10,7 +10,7 @@
 
 
 
-##sql脚本
+## sql脚本
 ```sql
     user 表
 CREATE TABLE `t_user` (
