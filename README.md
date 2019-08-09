@@ -23,6 +23,9 @@ CREATE TABLE `t_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 ```
+```bash
+ mvn flyway:migrate 
+```
 
 ## flyway mysql 相关引用配置
 ```mxml
