@@ -1,7 +1,6 @@
 package com.lonely.zo.learnxd.dto;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 /**
  * @Description
