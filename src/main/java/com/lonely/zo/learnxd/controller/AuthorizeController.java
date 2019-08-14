@@ -29,11 +29,11 @@ public class AuthorizeController {
     @Autowired
     private UserMapper userMapper;
 
-    @Value("${github.client.id}")
+    @Value("4969326dd1c95d434cb0")
     private String clientId;
-    @Value("${github.client.secret}")
+    @Value("7c76093d695494957a81a7eeaf7ca9eba54acc7b")
     private String clientSecret;
-    @Value("${github.redirect.uri}")
+    @Value("http://localhost:8887/callback")
     private String redirectUri;
 
     private GithubUser githubUser;

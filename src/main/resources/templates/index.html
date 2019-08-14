@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>learnxd</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/learnxd.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
@@ -13,7 +13,8 @@
     <div class="container-fluid" style="background-color: #2aabd2">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">孤独菜鸟</span>
             </button>
             <a class="navbar-brand" href="/">孤独菜鸟</a>
@@ -32,8 +33,9 @@
                     <a href="/publish">发布</a>
                 </li>
                 <li class="dropdown" th:if="${session.user != null}">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}"> <span class="caret"></span></a>
-                    <ul class="dropdown-menu" >
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false" th:text="${session.user.getName()}"> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
                         <li><a href="#">消息</a></li>
                         <li><a href="#">个人资料</a></li>
                         <li><a href="#">退出登录</a></li>
@@ -46,7 +48,7 @@
         </div>
     </div>
 </nav>
-<div class="container-fluid main" >
+<div class="container-fluid main">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span>发现</h2>
@@ -69,6 +71,36 @@
 
                 </div>
             </div>
+            <nav aria-label="Page navigation" style="float: right;">
+                <ul class="pagination">
+                    <li th:if="${pagination.showFirstPage==true}">
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li th:if="${pagination.showPrevious==true}">
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    <li th:each="page:${pagination.pages}" th:class="${pagination.page==page}?'active':''">
+                        <a th:href="@{/(page=${page})}" th:text="${page}"></a>
+                    </li>
+
+                    <li th:if="${pagination.showNext==true}">
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&rangd;</span>
+                        </a>
+                    </li>
+
+                    <li th:if="${pagination.showEndPage==true}">
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <h3>热门话题</h3>
