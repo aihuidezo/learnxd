@@ -1,5 +1,6 @@
 package com.lonely.zo.learnxd.mapper;
 
+import com.lonely.zo.learnxd.dto.GithubUser;
 import com.lonely.zo.learnxd.model.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,4 +17,7 @@ public interface UserMapper {
 
     @Select({"select * from t_user where id=#{id}"})
     User findById(@Param("id") Integer id);
+
+    @Select({"select * from t_user where account_id=#{accountId}"})
+    User findByAccountId(String accountId);
 }

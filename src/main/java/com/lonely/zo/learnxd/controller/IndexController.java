@@ -1,9 +1,7 @@
 package com.lonely.zo.learnxd.controller;
 
 import com.lonely.zo.learnxd.dto.PaginationDTO;
-import com.lonely.zo.learnxd.dto.QuestionDTO;
 import com.lonely.zo.learnxd.mapper.UserMapper;
-import com.lonely.zo.learnxd.model.Question;
 import com.lonely.zo.learnxd.model.User;
 import com.lonely.zo.learnxd.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * @Description

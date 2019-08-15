@@ -47,6 +47,38 @@ public class QuestionService {
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         //初始化pagination对象的QuestionList
         for (Question question : questions) {
+            User user = userMapper.findById(question.getCreator());
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(question, questionDTO);
+            questionDTO.setUser(user);
+            questionDTOList.add(questionDTO);
+        }
+        paginationDTO.setQuestions(questionDTOList);
+
+        return paginationDTO;
+    }
+
+    public PaginationDTO listByuserid(Integer userId, Integer page, Integer size) {
+        //分页所需参数，抽象为Pagination对象
+        PaginationDTO paginationDTO= new PaginationDTO();
+        Integer totalCount = questionMapper.countByuserid(userId);
+        //初始化pagination对象
+        paginationDTO.setPagination(totalCount,page,size);
+
+
+        if (page<1){
+            page=1;
+        }
+        if (page>paginationDTO.getTotalPage()){
+            page=paginationDTO.getTotalPage();
+        }
+        //offset查询偏移量，size查询条数
+        Integer offset=size*(page-1);
+        //分页查询
+        List<Question> questions = questionMapper.listByuserId(userId,offset,size);
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+        //初始化pagination对象的QuestionList
+        for (Question question : questions) {
             User u = userMapper.findById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDTO);
