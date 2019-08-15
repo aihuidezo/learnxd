@@ -14,24 +14,32 @@ import java.util.List;
  */
 @Data
 public class PaginationDTO {
-    private List<QuestionDTO> questions;
+    private List<QuestionDTO> questions;//每页展示的问题列表
     private boolean showPrevious;//向前按钮
     private boolean showFirstPage;//首页
     private boolean showNext;//向后按钮
     private boolean showEndPage;//尾页
 
     private Integer page;//当前页
-    private List<Integer> pages = new ArrayList<>();
-
+    private List<Integer> pages = new ArrayList<>();//展示页面列
+    private Integer totalPage;//最大分页数
 
     public void setPagination(Integer totalCount, Integer page, Integer size) {
         this.page=page;
-        Integer totalPage;
+        //计算最大分页数
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
         } else {
             totalPage = totalCount / size + 1;
         }
+        //规范页码
+        if (page<1){
+            page=1;
+        }
+        if (page>totalPage){
+            page=totalPage;
+        }
+        //展示页面设置
         pages.add(page);
         for (int i = 1; i <= 3; i++) {
             if (page - i > 0) {

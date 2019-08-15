@@ -31,6 +31,7 @@ public class IndexController {
     @GetMapping("/")
     public String index(HttpServletRequest request,
                         Model model,
+                        //页面传递过来page和size两个参数，page是当前页码，size是每页的记录数目
                         @RequestParam(name = "page", defaultValue = "1") Integer page,
                         @RequestParam(name = "size", defaultValue = "5") Integer size) {
         Cookie[] cookies = request.getCookies();
@@ -46,6 +47,7 @@ public class IndexController {
                 }
             }
         }
+        //在逻辑层进行分页查询处理
         PaginationDTO pagination = questionService.list(page,size);
         model.addAttribute("pagination", pagination);
         return "index";

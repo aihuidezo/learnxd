@@ -73,14 +73,16 @@
             </div>
             <nav aria-label="Page navigation" style="float: right;">
                 <ul class="pagination">
+
                     <li th:if="${pagination.showFirstPage==true}">
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
+                        <a href="/?page=1" aria-label="Previous">
+                            <span aria-hidden="true">&lt;&lt;</span>
                         </a>
                     </li>
+
                     <li th:if="${pagination.showPrevious==true}">
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
+                        <a th:href="@{/(page=${pagination.page - 1})}" aria-label="Previous">
+                            <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
 
@@ -89,14 +91,14 @@
                     </li>
 
                     <li th:if="${pagination.showNext==true}">
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&rangd;</span>
+                        <a th:href="@{/(page=${pagination.page + 1})}" aria-label="Previous">
+                            <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
 
                     <li th:if="${pagination.showEndPage==true}">
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
+                        <a th:href="@{/(page=${pagination.totalPage})}" aria-label="Next">
+                            <span aria-hidden="true">&gt;&gt;</span>
                         </a>
                     </li>
                 </ul>
