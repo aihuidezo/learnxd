@@ -29,17 +29,26 @@ public class QuestionService {
     public PaginationDTO list(Integer page, Integer size) {
         //分页所需参数，抽象为Pagination对象
         PaginationDTO paginationDTO= new PaginationDTO();
+
+        Integer totalPage;
+
         Integer totalCount = questionMapper.count();
-        //初始化pagination对象
-        paginationDTO.setPagination(totalCount,page,size);
-
-
+        //计算totalPage
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
+        } else {
+            totalPage = totalCount / size + 1;
+        }
+        //规范页码s
         if (page<1){
             page=1;
         }
-        if (page>paginationDTO.getTotalPage()){
-            page=paginationDTO.getTotalPage();
+        if (page>totalPage){
+            page=totalPage;
         }
+        //初始化pagination对象
+        paginationDTO.setPagination(totalPage,page);
+
         //offset查询偏移量，size查询条数
         Integer offset=size*(page-1);
         //分页查询
@@ -61,17 +70,26 @@ public class QuestionService {
     public PaginationDTO listByuserid(Integer userId, Integer page, Integer size) {
         //分页所需参数，抽象为Pagination对象
         PaginationDTO paginationDTO= new PaginationDTO();
+        Integer totalPage;
+
         Integer totalCount = questionMapper.countByuserid(userId);
-        //初始化pagination对象
-        paginationDTO.setPagination(totalCount,page,size);
-
-
+        //计算totalPage
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
+        } else {
+            totalPage = totalCount / size + 1;
+        }
+        //规范页码s
         if (page<1){
             page=1;
         }
-        if (page>paginationDTO.getTotalPage()){
-            page=paginationDTO.getTotalPage();
+        if (page>totalPage){
+            page=totalPage;
         }
+        //初始化pagination对象
+        paginationDTO.setPagination(totalPage,page);
+
+
         //offset查询偏移量，size查询条数
         Integer offset=size*(page-1);
         //分页查询

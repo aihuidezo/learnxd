@@ -24,22 +24,9 @@ public class PaginationDTO {
     private List<Integer> pages = new ArrayList<>();//展示页面列
     private Integer totalPage;//最大分页数
 
-    public void setPagination(Integer totalCount, Integer page, Integer size) {
+    public void setPagination(Integer totalPage, Integer page) {
+        this.totalPage=totalPage;
         this.page=page;
-        //计算最大分页数
-        if (totalCount % size == 0) {
-            totalPage = totalCount / size;
-        } else {
-            totalPage = totalCount / size + 1;
-        }
-        //规范页码
-        if (page<1){
-            page=1;
-        }
-        if (page>totalPage){
-            page=totalPage;
-        }
-        //展示页面设置
         pages.add(page);
         for (int i = 1; i <= 3; i++) {
             if (page - i > 0) {
