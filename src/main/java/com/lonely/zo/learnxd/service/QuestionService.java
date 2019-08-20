@@ -51,8 +51,12 @@ public class QuestionService {
 
         //offset查询偏移量，size查询条数
         Integer offset=size*(page-1);
+        if (questionMapper.count()==0){
+            return null;
+        }
         //分页查询
         List<Question> questions = questionMapper.list(offset,size);
+
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         //初始化pagination对象的QuestionList
         for (Question question : questions) {
@@ -106,5 +110,14 @@ public class QuestionService {
         paginationDTO.setQuestions(questionDTOList);
 
         return paginationDTO;
+    }
+    //通过id得到question，并但会question对象
+    public QuestionDTO getById(Integer id) {
+        Question question = questionMapper.getById(id);
+        QuestionDTO questionDTO=new QuestionDTO();
+        //给questionDTO对象赋值user，user通过question的creator查找
+        questionDTO.setUser(userMapper.findById(question.getCreator()));
+        BeanUtils.copyProperties(question,questionDTO);
+        return questionDTO;
     }
 }

@@ -3,9 +3,10 @@
 [Spring文档](https://spring.io/guides/gs/serving-web-content/)
 [github工程文档](https://github.com/aihuidezo/learnxd)
 [bootstrap文档](https://v3.bootcss.com/getting-started/)
-[Spring官方文档](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/html/boot-features-sql.html#boot-features-embedded-database-support)
+[SpringBoot官方文档](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/html/boot-features-sql.html#boot-features-embedded-database-support)
 [菜鸟教程(Mysql)](https://www.runoob.com/mysql/mysql-tutorial.html)
 [thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
+[SpringMvc](https://docs.spring.io/spring/docs/5.1.9.RELEASE/spring-framework-reference/web.html#mvc-http2)
 ## 工具
 [IDEA](http://www.jetbrains.com/idea/download/#section=windows)
 [git工具](https://git-scm.com)

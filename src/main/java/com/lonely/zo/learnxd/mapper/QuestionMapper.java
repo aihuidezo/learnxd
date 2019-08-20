@@ -1,5 +1,6 @@
 package com.lonely.zo.learnxd.mapper;
 
+import com.lonely.zo.learnxd.dto.QuestionDTO;
 import com.lonely.zo.learnxd.model.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -26,4 +27,7 @@ public interface QuestionMapper {
 
     @Select({"select count(1) from t_question where creator=#{userId}"})
     Integer countByuserid(@Param("userId") Integer userId);
+
+    @Select({"select * from t_question where id=#{id}"})
+    Question getById(@Param("id") Integer id);
 }

@@ -25,4 +25,19 @@ public class UserService {
             return false;
         }
     }
+
+    public void createOrUpdata(User user) {
+        User dbuser=userMapper.findByAccountId(user.getAccountId());
+        if (dbuser == null) {
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreate());
+            userMapper.insert(user);
+        }else {
+            dbuser.setAvatarUrl(user.getAvatarUrl());
+            dbuser.setGmtModified(System.currentTimeMillis());
+            dbuser.setName(user.getName());
+            dbuser.setToken(user.getToken());
+            userMapper.update(dbuser);
+        }
+    }
 }

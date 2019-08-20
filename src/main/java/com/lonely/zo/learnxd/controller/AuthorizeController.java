@@ -28,8 +28,6 @@ public class AuthorizeController {
     @Autowired
     private GithubProvider githubProvider;
     @Autowired
-    private UserMapper userMapper;
-    @Autowired
     private UserService userService;
 
     @Value("4969326dd1c95d434cb0")
@@ -57,24 +55,17 @@ public class AuthorizeController {
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         //获得github用户信息
         githubUser = githubProvider.getUser(accessToken);
-        if(githubUser !=null ){
-            //如果数据库中不存在该用户，则初始化user并存入数据库，否则直接登录
-            if (userService.isNotExit(String.valueOf(githubUser.getId()))){
+        if(githubUser != null && githubUser.getId() != null){
                 User user = new User();
                 String token = UUID.randomUUID().toString();
                 user.setToken(token);
                 user.setName(githubUser.getName());
                 user.setAccountId(String.valueOf(githubUser.getId()));
-                user.setGmtCreate(System.currentTimeMillis());
-                user.setGmtModified(user.getGmtCreate());
                 user.setAvatarUrl(githubUser.getAvatarUrl());
-                userMapper.insert(user);
-            }
-            User user = userMapper.findByAccountId(String.valueOf(githubUser.getId()));
-            //登录成功，写Cookie和session
-            response.addCookie(new Cookie("token",user.getToken()));
-            request.getSession().setAttribute("user", this.githubUser);
-            return "redirect:/";
+                userService.createOrUpdata(user);
+                response.addCookie(new Cookie("token",accessToken));
+                request.getSession().setAttribute("user",githubUser);
+                return "redirect:/";
         }else{
             //登陆失败，重新登录
             return "redirect:/";

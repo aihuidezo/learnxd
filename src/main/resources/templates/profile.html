@@ -11,11 +11,11 @@
 </head>
 <body>
 <div th:insert="~{navigation :: nav}"></div>
-<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-    <h2><span th:text="${sectionName}"></span></h2>
-    <hr>
-    <div class="container-fluid main profile">
-        <div class="row">
+<div class="container-fluid main profile">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h2><span th:text="${sectionName}"></span></h2>
+            <hr>
             <div class="media" th:each="question : ${pagination.questions}">
                 <div class="media-left">
                     <a href="#">
@@ -27,11 +27,10 @@
                     <h4 class="media-heading" th:text="${question.getTitle()}"></h4>
                     <span th:text="${question.getDescription()}"></span><br>
                     <span class="text-desc">
-                        <span th:text="${question.getCommentCount()}"></span>个回复?
-                        <span th:text="${question.getViewCount()}"></span>次浏览?
-                        <span th:text="${#dates.format(question.getGmtCreate(),'HH:mm:ss yyyy-MM-dd')}"></span>
-                     </span>
-
+                            <span th:text="${question.getCommentCount()}"></span>个回复?
+                            <span th:text="${question.getViewCount()}"></span>次浏览?
+                            <span th:text="${#dates.format(question.getGmtCreate(),'HH:mm:ss yyyy-MM-dd')}"></span>
+                        </span>
                 </div>
             </div>
             <nav aria-label="Page navigation" style="float: right;">
@@ -67,18 +66,18 @@
                 </ul>
             </nav>
         </div>
-    </div>
-</div>
-<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-    <div class="list-group section">
-        <a href="/profile/questions"  th:class="${section=='questions'}? 'active list-group-item' : 'list-group-item'">
-            <span class="badge">14</span>
-            我的问题
-        </a>
-        <a href="/profile/repies"  th:class="${section=='repies'}? 'active list-group-item' : 'list-group-item'">
-            <span class="badge">14</span>
-            最新回复
-        </a>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="list-group section">
+                <a href="/profile/questions"  th:class="${section=='questions'}? 'active list-group-item' : 'list-group-item'">
+                    <span class="badge">14</span>
+                    我的问题
+                </a>
+                <a href="/profile/repies"  th:class="${section=='repies'}? 'active list-group-item' : 'list-group-item'">
+                    <span class="badge">14</span>
+                    最新回复
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 </body>
