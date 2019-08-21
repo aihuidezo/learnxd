@@ -65,7 +65,8 @@ create table t_question
 </plugin>
 ```
 ```bash
- mvn flyway:migrate 
+ mvn flyway:migrate
+ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate 
 ```
 ## lombok依赖
 ```mxml
@@ -75,6 +76,14 @@ create table t_question
     <version>1.18.8</version>
     <scope>provided</scope>
 </dependency>
+```
+## 备注
+```html
+index.html  是首页；
+navigation.html 是页面头模板；
+profile.html 是我的问题页面；
+publish.html 是发起问题页面；
+question.html 是问题详情页面；
 ```
 
 

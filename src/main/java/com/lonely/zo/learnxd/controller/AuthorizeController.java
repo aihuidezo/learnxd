@@ -62,13 +62,22 @@ public class AuthorizeController {
                 user.setName(githubUser.getName());
                 user.setAccountId(String.valueOf(githubUser.getId()));
                 user.setAvatarUrl(githubUser.getAvatarUrl());
+                user.setBio(githubUser.getBio());
                 userService.createOrUpdata(user);
-                response.addCookie(new Cookie("token",accessToken));
-                request.getSession().setAttribute("user",githubUser);
+                response.addCookie(new Cookie("token",token));
                 return "redirect:/";
         }else{
             //登陆失败，重新登录
             return "redirect:/";
         }
+    }
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request,
+                         HttpServletResponse response){
+        request.getSession().removeAttribute("user");
+        Cookie cookie=new Cookie("token",null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
     }
 }
