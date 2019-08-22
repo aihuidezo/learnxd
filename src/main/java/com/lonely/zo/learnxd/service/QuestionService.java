@@ -5,7 +5,9 @@ import com.lonely.zo.learnxd.dto.QuestionDTO;
 import com.lonely.zo.learnxd.mapper.QuestionMapper;
 import com.lonely.zo.learnxd.mapper.UserMapper;
 import com.lonely.zo.learnxd.model.Question;
+import com.lonely.zo.learnxd.model.QuestionExample;
 import com.lonely.zo.learnxd.model.User;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +34,10 @@ public class QuestionService {
 
         Integer totalPage;
 
-        Integer totalCount = questionMapper.count();
+        Integer totalCount =(int) questionMapper.countByExample(new QuestionExample());
+        if (totalCount==0){
+            return null;
+        }
         //计算totalPage
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
@@ -51,11 +56,8 @@ public class QuestionService {
 
         //offset查询偏移量，size查询条数
         Integer offset=size*(page-1);
-        if (questionMapper.count()==0){
-            return null;
-        }
         //分页查询
-        List<Question> questions = questionMapper.list(offset,size);
+        List<Question> questions = questionMapper.selectByExampleWithRowbounds(new QuestionExample(),new RowBounds(offset,size));
 
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         //初始化pagination对象的QuestionList
@@ -76,7 +78,15 @@ public class QuestionService {
         PaginationDTO paginationDTO= new PaginationDTO();
         Integer totalPage;
 
-        Integer totalCount = questionMapper.countByuserid(userId);
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.createCriteria()
+                .andCreatorEqualTo(userId);
+        Integer totalCount =(int) questionMapper.countByExample(questionExample);
+
+        if (totalCount==0){
+            return null;
+        }
+
         //计算totalPage
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
@@ -97,11 +107,12 @@ public class QuestionService {
         //offset查询偏移量，size查询条数
         Integer offset=size*(page-1);
 
-        if (questionMapper.count()==0){
-            return null;
-        }
+
         //分页查询
-        List<Question> questions = questionMapper.listByuserId(userId,offset,size);
+        QuestionExample example = new QuestionExample();
+        example.createCriteria()
+                .andCreatorEqualTo(userId);
+        List<Question> questions = questionMapper.selectByExampleWithRowbounds(example,new RowBounds(offset,size));
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         //初始化pagination对象的QuestionList
         for (Question question : questions) {
@@ -118,7 +129,8 @@ public class QuestionService {
     }
     //通过id得到question，并但会question对象
     public QuestionDTO getById(Integer id) {
-        Question question = questionMapper.getById(id);
+
+        Question question = questionMapper.selectByPrimaryKey(id);
         QuestionDTO questionDTO=new QuestionDTO();
         //给questionDTO对象赋值user，user通过question的creator查找user
         questionDTO.setUser(userMapper.selectByPrimaryKey(question.getCreator()));
@@ -129,11 +141,17 @@ public class QuestionService {
         if (question.getId()==null){
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
-            questionMapper.create(question);
+            questionMapper.insert(question);
         }else{
-            question.setGmtCreate(System.currentTimeMillis());
-            question.setGmtModified(question.getGmtCreate());
-            questionMapper.update(question);
+            Question updatequestion = new Question();
+            updatequestion.setGmtModified(System.currentTimeMillis());
+            updatequestion.setTag(question.getTitle());
+            updatequestion.setTag(question.getTag());
+            updatequestion.setDescription(question.getDescription());
+            QuestionExample example = new QuestionExample();
+            example.createCriteria()
+                    .andIdEqualTo(question.getId());
+            questionMapper.updateByExampleSelective(updatequestion, example);
         }
     }
 }

@@ -5,6 +5,7 @@
 
 <generatorConfiguration>
     <context id="DB2Tables" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost/learnxd?serverTimezone=GMT%2B8"
                         userId="root"
@@ -28,8 +29,8 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table tableName="t_user" domainObjectName="User" >
-        </table>
+        <table tableName="t_user" domainObjectName="User" ></table>
+        <table tableName="t_question" domainObjectName="Question" ></table>
 
     </context>
 </generatorConfiguration>

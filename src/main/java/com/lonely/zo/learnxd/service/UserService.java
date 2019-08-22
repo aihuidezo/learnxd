@@ -23,7 +23,8 @@ public class UserService {
     //此方法已弃用
     public boolean isNotExit(String accountId) {
         UserExample userExample = new UserExample();
-        userExample.createCriteria().andAccountIdEqualTo(accountId);
+        userExample.createCriteria()
+                .andAccountIdEqualTo(accountId);
         List<User> users = userMapper.selectByExample(userExample);
         if (users.size()==0){
             return true;
@@ -35,7 +36,8 @@ public class UserService {
     public void createOrUpdata(User user) {
         //根据user的accountId，从数据库中查找User
         UserExample userExample = new UserExample();
-        userExample.createCriteria().andAccountIdEqualTo(user.getAccountId());
+        userExample.createCriteria()
+                .andAccountIdEqualTo(user.getAccountId());
         List<User> users= userMapper.selectByExample(userExample);
         //当users为空，即数据库中不存在此user，则向数据库中插入此user
         if (users.size() == 0) {
@@ -53,7 +55,8 @@ public class UserService {
             updateUser.setToken(user.getToken());
             updateUser.setBio(user.getBio());
             UserExample example = new UserExample();
-            example.createCriteria().andIdEqualTo(dbuser.getId());
+            example.createCriteria()
+                    .andIdEqualTo(dbuser.getId());
             userMapper.updateByExampleSelective(updateUser, example);
         }
     }
