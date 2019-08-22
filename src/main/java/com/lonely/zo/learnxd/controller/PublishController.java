@@ -19,8 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 public class PublishController {
 
     @Autowired
-    private QuestionMapper questionMapper;
-    @Autowired
     private QuestionService questionService;
 
     @GetMapping("/publish/{id}")

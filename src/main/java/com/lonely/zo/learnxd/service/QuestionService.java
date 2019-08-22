@@ -2,6 +2,8 @@ package com.lonely.zo.learnxd.service;
 
 import com.lonely.zo.learnxd.dto.PaginationDTO;
 import com.lonely.zo.learnxd.dto.QuestionDTO;
+import com.lonely.zo.learnxd.exception.CustomizeErrorCode;
+import com.lonely.zo.learnxd.exception.CustomizeException;
 import com.lonely.zo.learnxd.mapper.QuestionMapper;
 import com.lonely.zo.learnxd.mapper.UserMapper;
 import com.lonely.zo.learnxd.model.Question;
@@ -35,9 +37,6 @@ public class QuestionService {
         Integer totalPage;
 
         Integer totalCount =(int) questionMapper.countByExample(new QuestionExample());
-        if (totalCount==0){
-            return null;
-        }
         //计算totalPage
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
@@ -129,8 +128,11 @@ public class QuestionService {
     }
     //通过id得到question，并但会question对象
     public QuestionDTO getById(Integer id) {
-
         Question question = questionMapper.selectByPrimaryKey(id);
+        //数据库中不存在该id的问题，返回异常处理
+        if (question==null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO=new QuestionDTO();
         //给questionDTO对象赋值user，user通过question的creator查找user
         questionDTO.setUser(userMapper.selectByPrimaryKey(question.getCreator()));
@@ -151,7 +153,11 @@ public class QuestionService {
             QuestionExample example = new QuestionExample();
             example.createCriteria()
                     .andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(updatequestion, example);
+            int updated = questionMapper.updateByExampleSelective(updatequestion, example);
+            if (updated != 1){
+                //问题不存在，返回QUESTION_NOT_FOUND异常
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
     }
 }

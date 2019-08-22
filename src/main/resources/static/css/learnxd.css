@@ -21,7 +21,10 @@ body{
 .profile.section{
     margin-top: 30px;
 }
-.learnxd-menu{
-    color:#999;
-    font-size:10px;
+.learnxd-menu {
+    color: #999;
+    font-size: 10px;
+}
+.jumbotron{
+    margin: 50px;
 }
