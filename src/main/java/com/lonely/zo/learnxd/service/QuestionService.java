@@ -4,6 +4,7 @@ import com.lonely.zo.learnxd.dto.PaginationDTO;
 import com.lonely.zo.learnxd.dto.QuestionDTO;
 import com.lonely.zo.learnxd.exception.CustomizeErrorCode;
 import com.lonely.zo.learnxd.exception.CustomizeException;
+import com.lonely.zo.learnxd.mapper.QuestionExtMapper;
 import com.lonely.zo.learnxd.mapper.QuestionMapper;
 import com.lonely.zo.learnxd.mapper.UserMapper;
 import com.lonely.zo.learnxd.model.Question;
@@ -29,6 +30,8 @@ public class QuestionService {
     private QuestionMapper questionMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     public PaginationDTO list(Integer page, Integer size) {
         //分页所需参数，抽象为Pagination对象
@@ -159,5 +162,12 @@ public class QuestionService {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
         }
+    }
+
+    public void incView(Integer id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);
     }
 }

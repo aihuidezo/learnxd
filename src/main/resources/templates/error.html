@@ -13,6 +13,7 @@
 <div th:insert="~{navigation :: nav}"></div>
 <div class="jumbotron">
     <h1>出错啦！</h1>
+    <!--/*@thymesVar id="message" type=""*/-->
     <span th:text="${message}">服务太热啦，要不然稍等一下-_-</span>
     <p><a class="btn btn-primary btn-lg" href="/" role="button">回到主页</a></p>
 </div>
