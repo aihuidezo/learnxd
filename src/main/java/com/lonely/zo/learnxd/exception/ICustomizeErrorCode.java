@@ -8,4 +8,5 @@ package com.lonely.zo.learnxd.exception;
  */
 public interface ICustomizeErrorCode {
     String getMessage();
+    Integer getCode();
 }

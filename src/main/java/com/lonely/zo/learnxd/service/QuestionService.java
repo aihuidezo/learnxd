@@ -75,7 +75,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public PaginationDTO listByuserid(Integer userId, Integer page, Integer size) {
+    public PaginationDTO listByuserid(Long userId, Integer page, Integer size) {
         //分页所需参数，抽象为Pagination对象
         PaginationDTO paginationDTO= new PaginationDTO();
         Integer totalPage;
@@ -130,7 +130,7 @@ public class QuestionService {
         return paginationDTO;
     }
     //通过id得到question，并但会question对象
-    public QuestionDTO getById(Integer id) {
+    public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         //数据库中不存在该id的问题，返回异常处理
         if (question==null){
@@ -164,7 +164,7 @@ public class QuestionService {
         }
     }
 
-    public void incView(Integer id) {
+    public void incView(Long id) {
         Question question = new Question();
         question.setId(id);
         question.setViewCount(1);

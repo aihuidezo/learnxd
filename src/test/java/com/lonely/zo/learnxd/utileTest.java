@@ -1,6 +1,9 @@
 package com.lonely.zo.learnxd;
 
+import com.lonely.zo.learnxd.model.User;
 import org.junit.Test;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Author: ZO
